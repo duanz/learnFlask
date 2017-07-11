@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %} Duan's WEBSITE-login {% endblock %}
+{% block content %}
+	<div style="height:100%; background: url('../static/img/login.jpg')no-repeat;background-size: cover;width: 100%;">
+        <form method="post">
+            <div style="width:50%;padding-top:22%; padding-left:30%">
+                {{ form.hidden_tag() }}
+                <table>
+                    <tr style=" height:20px">
+                        {% for message in get_flashed_messages() %}
+                        <td align="center" colspan="2" style="background:#FFCC99; color:red;">{{ message }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr style="height:4px"><td colspan="2"></td></tr>
+                    <tr>
+                        <td>{{ form.username.label }};</td>
+                        <td>{{ form.username(size=18) }}</td>
+                    </tr>
+                    <tr style="height:4px"><td colspan="2"></td></tr>
+                    <tr>
+                        <td>{{ form.password.label }};</td>
+                        <td>{{ form.password(size=18) }}</td>
+                    </tr>
+                    <tr style="height:4px"><td colspan="2"></td></tr>
+                    <tr>
+                        <td align="right">{{ form.submit() }}</td>
+                        <td align="right"><a href="/register">新用户注册</a></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+	</div>
+{% endblock %}

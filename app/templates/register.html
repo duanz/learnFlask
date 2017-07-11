@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %} Duan's WEBSITE-register {% endblock %}
+{% block content %}
+	<div style="height:100%; background: url('../static/img/login.jpg')no-repeat;background-size: cover;width: 100%;">
+        <form method="post">
+            <div style="width:50%;padding-top:22%; padding-left:30%">
+                {% for message in get_flashed_messages() %}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}<br>
+                <div style="height:5px"></div>
+                {% endfor %}
+                {{ form.hidden_tag() }}
+                {{ form.username.label }};&nbsp;&nbsp;&nbsp;&nbsp;{{ form.username(size=18) }}
+                <div style="height:5px"></div>
+                {{ form.password.label }};&nbsp;&nbsp;&nbsp;&nbsp;{{ form.password(size=18) }}<br>
+                <div style="height:5px"></div>
+                {{ form.password2.label }};&nbsp;&nbsp;&nbsp;&nbsp;{{ form.password2(size=18) }}<br>
+                <div style="height:5px"></div>
+                {{ form.email.label }};&nbsp;&nbsp;&nbsp;&nbsp;{{ form.email(size=18) }}<br>
+                <div style="height:5px"></div>
+                {{ form.address.label }};&nbsp;&nbsp;&nbsp;&nbsp;{{ form.address(size=18) }}<br>
+                <div style="height:5px"></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ form.submit() }}
+                &nbsp;&nbsp;<a href="/">取消</a>
+            </div>
+        </form>
+	</div>
+{% endblock %}

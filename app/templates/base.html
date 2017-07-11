@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+    <title>{% block title %}wellcome to duan{% endblock %}</title>
+    {% endblock %}
+   <!-- 禁止浏览器从本地缓存中调阅页面。-->
+	<!--<meta http-equiv="pragram" content="no-cache">-->
+	<!--&lt;!&ndash;网页不保存在缓存中，每次访问都刷新页面。&ndash;&gt;-->
+	<!--<meta http-equiv="cache-control" content="no-cache, must-revalidate">-->
+	<!--&lt;!&ndash;同上面意思差不多，必须重新加载页面&ndash;&gt;-->
+	<!--<meta http-equiv="expires" content="0">-->
+	<!--网页在缓存中的过期时间为0，一旦网页过期，必须从服务器上重新订阅-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<link href="../static/mycss/bootstrap.min.css" rel="stylesheet" />
+<link href="../static/mycss/bootstrap-theme.css" rel="stylesheet" />
+<script src="../static/myjs/jquery.min.js"></script>
+<script src="../static/myjs/bootstrap.js"></script>
+<body style="height:950px;width:1920px">
+<div align="middle" class="container" style="width:90%;height:100%;">
+	{% block topbar %}
+	<div id="LG" class="container-fluid" style="background-color:#CCCCCC;">
+		<div class="row-fluid">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="/" class="menu-font" >DUAN.com</a>
+					</li>
+					<li>
+						<a href="#" class="menu-font" id="morePic">条形图</a>
+					</li>
+					<li>
+						<a href="#" class="menu-font" id="morePic2">曲线图</a>
+					</li>
+					<li class="dropdown">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><font class="menu-font">篮色球</font><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#" id="blue_Pic_bar">条形图</a>
+							</li>
+							<li>
+								<a href="#" id="blue_pic_scatter">对应天气曲线图</a>
+							</li>
+							<li>
+								<a href="#">更多设置</a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="#">分割线</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						{% if user_id != 5 %}
+						<a href="/login" data-toggle="dropdown" class="dropdown-toggle"><font class="menu-font">hello {{username}}</font><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#">个人中心</a>
+							</li>
+							<li>
+								<a href="/logout">注销</a>
+							</li>
+							<li>
+								<a href="#">更多设置</a>
+							</li>
+						</ul>
+						{% else %}
+						<a href="/login" data-toggle="dropdown" class="dropdown-toggle"><font class="menu-font">hello {{username}}</font><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="/login">登陆</a>
+							</li>
+							<li>
+								<a href="/register">注册</a>
+							</li>
+						</ul>
+						{% endif %}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+
+	<div id="contentarea" style="height:89%;width:100%;" >
+		{% block content %}{% endblock %}
+	</div>
+	<div id="loadPicture" style="display:none, opacity:0.60">
+			<div class="spinner"><div class="dot1"></div><div class="dot2"></div></div>
+	</div>
+
+
+	{% block bottombar %}
+			<div class="span12" style="background-color:#CCCCCC;height:5%" align="middle">
+				DUAN.com&copy;版权所有<br>
+				联系我们：duanzhh@outlook.com
+			</div>
+	{% endblock %}
+</div>
+</body>
+<link href="../static/mycss/mycss.css" rel="stylesheet" />
+<script style="javascript/text" src="../static/myjs/kjxx-table.js"></script>
+{% block scripts %}{%endblock%}
+</html>

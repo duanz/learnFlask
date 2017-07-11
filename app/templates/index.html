@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %} Duan's WEBSITE {% endblock %}
+{% block content %}
+        <div style="margin-top:5px">
+            <table class="kjxx_table" align="left" style="width:50%; height:400px">
+                <thead><tr style="border-top:0px"><td colspan="8" align="middle"><strong style="font-size:large">{{ botxx.qh }}期到{{ topxx.qh }}期开奖信息</strong></td></tr></thead>
+                <tr style="height:35px;padding-top:25px">
+                    <td colspan="8" align="left">
+                        <select class="combobox" id="select_ball_color">球色</span>
+                            <option value="blue">蓝色球</option>
+                            <option value="red">红色球</option>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select class="combobox" id="select_condition">查询条件</span>
+                            <option value="equal" selected>等于</option>
+                            <option value="not_equal">不等于</option>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="text" id="inputkjrq" value="号码" style="width:40px; height:20px">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="searchkjrq" type="button" class="btn btn-info btn-xs">搜索</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FFCC00">期号</td>
+                    <td bgcolor="#FFCC00">红1</td>
+                    <td bgcolor="#FFCC00">红2</td>
+                    <td bgcolor="#FFCC00">红3</td>
+                    <td bgcolor="#FFCC00">红4</td>
+                    <td bgcolor="#FFCC00">红5</td>
+                    <td bgcolor="#FFCC00">红6</td>
+                    <td bgcolor="#FFCC00">蓝</td>
+                </tr>
+                {% for kjhm in kjxx %}
+                <tr>
+                    <td bgcolor="#FFCC00">{{kjhm.qh}}</td>
+                    <td bgcolor="#CC3333">{{kjhm.num1}}</td>
+                    <td bgcolor="#CC3333">{{kjhm.num2}}</td>
+                    <td bgcolor="#CC3333">{{kjhm.num3}}</td>
+                    <td bgcolor="#CC3333">{{kjhm.num4}}</td>
+                    <td bgcolor="#CC3333">{{kjhm.num5}}</td>
+                    <td bgcolor="#CC3333">{{kjhm.num6}}</td>
+                    <td bgcolor="#009999">{{kjhm.num7}}</td>
+                </tr>
+                {%endfor%}
+                <tr><td colspan="8" align="right">
+                    <a class="button" id="uppage">上一页</a>
+                    <a class="button" id="nextpage">下一页</a>
+                    <label>当前是第<strong>{{pageinfo['nowpage']}}</strong>页，共<strong id="totalpage">{{pageinfo['totalpage']}}</strong>页&nbsp;&nbsp;跳转至</label>
+                    <input type="text" size="5" id="nowpage" value="{{pageinfo['nowpage']}}">
+                    <label>页</label><a class="button" id="gopage">跳转</a>
+
+                </td></tr>
+            </table>
+        </div>
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}
