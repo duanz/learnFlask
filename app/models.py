@@ -33,9 +33,9 @@ class Kjhm(object):
     @staticmethod
     def getkjhmbyrq(kjrq):
         sql = '''SELECT `id`, `qh`, `kjrq`, `num1`, `num2`, `num3`, `num4`, `num5`, `num6`, `num7`, `sales`, `first`,
-        `secend` FROM `duan`.`kjhm` WHERE `kjrq` = %s;''' % kjrq
+        `secend` FROM `duan`.`kjhm` WHERE `kjrq` = %s;'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, kjrq)
             row = cursor.fetchone()
             connection.commit()
             cursor.close()
@@ -49,9 +49,9 @@ class Kjhm(object):
     def getkjhmbycount(start=0, end=30):
         kjxx = []
         sql = '''SELECT `id`, `qh`, `kjrq`, `num1`, `num2`, `num3`, `num4`, `num5`, `num6`, `num7`, `sales`, `first`,
-            `secend` FROM `duan`.`kjhm` LIMIT %d, %d;''' % (start, end)
+            `secend` FROM `duan`.`kjhm` LIMIT %s, %s;'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, (start, end))
             rows = cursor.fetchall()
             connection.commit()
             cursor.close()
@@ -71,9 +71,9 @@ class Kjhm(object):
 
     @staticmethod
     def get_count_by_col(col, ball):
-        sql = '''SELECT COUNT(`id`) FROM `duan`.`kjhm` WHERE `%s`=%d;''' % (col, ball)
+        sql = '''SELECT COUNT(`id`) FROM `duan`.`kjhm` WHERE %s=%s;'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, (col, ball))
             count = cursor.fetchone()[0]
             connection.commit()
             cursor.close()
@@ -82,9 +82,9 @@ class Kjhm(object):
     @staticmethod
     def get_kjhm_and_weather_by_count(start=0, end=30):
         sql = '''SELECT `weathar`.`id`, `qh`, `kjrq`, `num1`, `num2`, `num3`, `num4`, `num5`, `num6`, `num7`, `sales`, `first`,
-            `secend`, `desc`, `wd` FROM `kjhm`, `weathar` WHERE `weathar`.`rq` = `kjhm`.`kjrq` LIMIT %d, %d;''' % (start, end)
+            `secend`, `desc`, `wd` FROM `kjhm`, `weathar` WHERE `weathar`.`rq` = `kjhm`.`kjrq` LIMIT %s, %s;'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, (start, end))
             results = cursor.fetchall()
             connection.commit()
             cursor.close()
@@ -92,10 +92,10 @@ class Kjhm(object):
 
     @staticmethod
     def get_kjhm_and_weather_by_col(col, ball, desc):
-        sql = '''SELECT count(`weathar`.`id`) FROM `kjhm`, `weathar` WHERE `kjhm`.`%s` = %d and \
-         `weathar`.`desc` = '%s' and `weathar`.`rq` = `kjhm`.`kjrq`;''' % (col, ball, desc)
+        sql = '''SELECT count(`weathar`.`id`) FROM `kjhm`, `weathar` WHERE `kjhm`.%s = %s and \
+         `weathar`.`desc` = %s and `weathar`.`rq` = `kjhm`.`kjrq`;'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, (col, ball, desc))
             count = cursor.fetchone()[0]
             connection.commit()
             cursor.close()
@@ -134,9 +134,10 @@ class User(object):
     @staticmethod
     def getuserbyname(name):
         sql = '''SELECT `id`, `username`, `password_hash`, `role_id`, `address`, `email` FROM `duan`.`users`
-        WHERE `username` = '%s';''' % name
+        WHERE `username` = %s;'''
+        print(sql)
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, name)
             row = cursor.fetchone()
             connection.commit()
             cursor.close()
@@ -148,9 +149,9 @@ class User(object):
     @staticmethod
     def insertuser(user):
         sql = '''INSERT INTO `duan`.`users` (`username`, `password_hash`, `role_id`, `address`, `email`) VALUES
-         ('%s', '%s', '%d', '%s', '%s');''' % (user.username, user.password_hash, user.roleid, user.address, user.email)
+         (%s, %s, %s, %s, %s);'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, (user.username, user.password_hash, user.roleid, user.address, user.email))
             connection.commit()
             cursor.close()
 
@@ -163,9 +164,9 @@ class Role(object):
 
     @staticmethod
     def getrolebyid(role_id):
-        sql = '''SELECT `id`, `rolename`, `level` FROM `duan`.`role` WHERE `id` = %d''' % role_id
+        sql = '''SELECT `id`, `rolename`, `level` FROM `duan`.`role` WHERE `id` = %s'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, role_id)
             row = cursor.fetchone()
             connection.commit()
             cursor.close()
@@ -174,7 +175,7 @@ class Role(object):
 
     @staticmethod
     def getallrole():
-        sql = '''SELECT `id`, `rolename`, `level` FROM `duan`.`role` LIMIT 0, 1000'''
+        sql = '''SELECT `id`, `rolename`, `level` FROM `duan`.`role`;'''
         with connection.cursor() as cursor:
             cursor.execute(sql)
             rows = cursor.fetchall()
@@ -200,9 +201,9 @@ class Weather(object):
 
     @staticmethod
     def get_desc_count_by_desc(desc):
-        sql = '''select count(`id`) from `weathar` where `desc` = '%s';''' % desc
+        sql = '''select count(`id`) from `weathar` where `desc` = %s;'''
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, desc)
             count = cursor.fetchone()[0]
             connection.commit()
             cursor.close()
